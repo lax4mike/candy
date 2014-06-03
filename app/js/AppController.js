@@ -24,13 +24,13 @@ var AppController = function(){
             var dot = new DotView({
                 container: "#dots"
             });
-        }, 40);
+        }, 50);
 
         setTimeout(function(){
             clearInterval(dotTimer);
             $('.envelope').removeClass('open');
             this.removeCandy();
-        }.bind(this), 6000);
+        }.bind(this), 12000);
     }
 
     this.defineCoords = function(){
@@ -52,35 +52,35 @@ var AppController = function(){
 
     this.addCandy = function(){
 
-        this.candy.push(new CandyView({ 
-            container: "#candy",
-            flavor: "wrapped",
-            position: [this.left, this.top]
-        }));
+        // only add the candy if it's not there
+        if (this.candy.length == 0){
+            this.candy.push(new CandyView({ 
+                container: "#candy",
+                flavor: "wrapped",
+                position: [this.left, this.top]
+            }));
 
-        this.candy.push(new CandyView({ 
-            container: "#candy",
-            flavor: "peppermint",
-            position: [this.right, this.top]
-        }));
+            this.candy.push(new CandyView({ 
+                container: "#candy",
+                flavor: "peppermint",
+                position: [this.right, this.top]
+            }));
 
-        this.candy.push(new CandyView({ 
-            container: "#candy",
-            flavor: "lolly",
-            position: [this.right, this.bottom]
-        }));
+            this.candy.push(new CandyView({ 
+                container: "#candy",
+                flavor: "lolly",
+                position: [this.right, this.bottom]
+            }));
 
-       this.candy.push(new CandyView({ 
-            container: "#candy",
-            flavor: "candycane",
-            position: [this.left, this.bottom]
-        }));
- 
-        
-
+           this.candy.push(new CandyView({ 
+                container: "#candy",
+                flavor: "candycane",
+                position: [this.left, this.bottom]
+            }));
+     
+        }
      
         // this.move = setInterval(this.moveCandy.bind(this), 2000);
-        
 
     }
 

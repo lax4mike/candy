@@ -78,7 +78,7 @@ gulp.task('js', function() {
             transform: [handlebars]
             // debug: true
         }))
-        // .pipe(uglify())
+        .pipe(uglify())
         .pipe(gulp.dest(paths.assets + "/js/"))
         .pipe(reload(lr));
 });

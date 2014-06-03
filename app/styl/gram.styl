@@ -1,17 +1,18 @@
 
-envelope-height = 200px;
-envelope-width = (envelope-height*1.5);
+envelope-height = 180px;
+envelope-width = (envelope-height*1.75);
 
-time-flap = .5s;
-time-paper = 1s;
+time-flap = .4s;
+time-paper = .8s;
 
 z-index = {
+    envelope-top: 300,
     envelope-front: 200,
     paper: 150,
     envelope-back: 100
 };
 
-envelope-background = #c94548;
+envelope-background = #df4045; //#c94548;
 envelope-shadow     = #ed4c50;
 envelope-foreground = #fa565a;
 
@@ -27,6 +28,7 @@ envelope-foreground = #fa565a;
     border-radius: 0 0 5px 5px;
     box-shadow: 0 0 1px envelope-background inset;
     z-index: z-index['envelope-back'];
+    cursor: pointer;
 
 
     &:before,
@@ -36,24 +38,27 @@ envelope-foreground = #fa565a;
         width: 0;
         height: 0;
         border: 0 solid transparent;
-        border-width: (envelope-height/2) (envelope-width/2);
         z-index: z-index['envelope-front'];
     }
     // top flap
     &:before {
+        border-width: 0 (envelope-width/2) ((envelope-height/2) + 40);
         transition: all time-flap ease (time-paper/2);
         border-bottom-color: envelope-background;
-        top: -100%;
+        top: ((envelope-height/2) + 40) * -1;
         left: 0px;
         transform: rotateX(180deg);
         transform-origin: center 100%;
+        z-index: z-index['envelope-top'];
     }
     // front flaps
     &:after {
         border-right-color: envelope-shadow;
-        border-left-color: envelope-foreground;
+        border-left-color: envelope-shadow;
         border-bottom-color: envelope-foreground;
+        border-width: (envelope-height/2) ((envelope-width/2) - 20);
         top: 0;
+        width: 40px;
         border-radius: 0 0 5px 5px;
         // transform: rotate(360deg);
         box-shadow: 0 1px 1px rgba(0,0,0,0.25);
@@ -74,6 +79,14 @@ envelope-foreground = #fa565a;
         transition: all (time-paper/2) ease;
         text-align: center;
         z-index: z-index['paper'];
+        font-size: 14px;
+        p {
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        span {
+            font-size: 12px;
+        }
 
     }
 
