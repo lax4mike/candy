@@ -1,0 +1,106 @@
+
+envelope-height = 200px;
+envelope-width = (envelope-height*1.5);
+
+time-flap = .5s;
+time-paper = 1s;
+
+z-index = {
+    envelope-front: 200,
+    paper: 150,
+    envelope-back: 100
+};
+
+envelope-background = #c94548;
+envelope-shadow     = #ed4c50;
+envelope-foreground = #fa565a;
+
+
+.envelope {
+
+    position: relative;
+    top: 30%;
+    margin: 0 auto;
+    width: envelope-width;
+    height: envelope-height;
+    background: envelope-background;
+    border-radius: 0 0 5px 5px;
+    box-shadow: 0 0 1px envelope-background inset;
+    z-index: z-index['envelope-back'];
+
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 0;
+        border: 0 solid transparent;
+        border-width: (envelope-height/2) (envelope-width/2);
+        z-index: z-index['envelope-front'];
+    }
+    // top flap
+    &:before {
+        transition: all time-flap ease (time-paper/2);
+        border-bottom-color: envelope-background;
+        top: -100%;
+        left: 0px;
+        transform: rotateX(180deg);
+        transform-origin: center 100%;
+    }
+    // front flaps
+    &:after {
+        border-right-color: envelope-shadow;
+        border-left-color: envelope-foreground;
+        border-bottom-color: envelope-foreground;
+        top: 0;
+        border-radius: 0 0 5px 5px;
+        // transform: rotate(360deg);
+        box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+    }
+
+    .paper {
+        box-sizing: border-box;
+        background: #fff;
+        width: (envelope-width - 11px);
+        height: (envelope-height);
+        margin: 0 auto;
+        border-radius: 5px;
+        position: absolute;
+        left: 6px;
+        top: 0;
+        box-shadow: 0 1px 1px rgba(0,0,0,0.25);
+        padding: 10px;
+        transition: all (time-paper/2) ease;
+        text-align: left;
+        z-index: z-index['paper'];
+
+    }
+
+    &.open {
+    
+        &:before {
+          transform: rotateX(0deg);
+          z-index: 0;
+          z-index: z-index['envelope-back'];
+           transition: all time-paper ease ;
+        }
+
+        .paper {
+            top: ((envelope-height/3) * -1);
+            transition: all time-paper ease time-flap;
+
+        }
+    }
+
+
+
+}
+
+@keyframes read {
+    0%   { top: 0px; }
+    100% { top: ((envelope-height/3) * -1); }
+}
+
+
+
