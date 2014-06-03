@@ -3,7 +3,6 @@ window.jQuery = $; // hack to get velocity to
 var _ = require('underscore');
 var Backbone = require('backbone');
 Backbone.$ = $;
-var transit = require('jquery.transit');
 
 var velocity = require('velocity-animate');
 

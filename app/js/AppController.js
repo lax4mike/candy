@@ -17,25 +17,61 @@ var AppController = function(){
 
     // this.socket = socket;
 
-    
+    this.candy = [];
 
     this.startConfetti = function(){
         var dotTimer = setInterval(function(){
             var dot = new DotView({
                 container: "#dots"
             });
-        }, 50);
+        }, 40);
 
         setTimeout(function(){
             clearInterval(dotTimer);
             $('.envelope').removeClass('open');
-        }, 6000);
+            this.removeCandy();
+        }.bind(this), 6000);
     }
 
+
+
     this.addCandy = function(){
-        var wrapped = new CandyView({ 
+
+        var distance = 100;
+        var left   = distance;
+        var right  = $(window).width() - distance;
+        var top    = distance;
+        var bottom = $(window).height() - distance;
+
+        this.candy.push(new CandyView({ 
             container: "#candy",
-            flavor: "lolly"
+            flavor: "wrapped",
+            position: [left, top]
+        }));
+
+        this.candy.push(new CandyView({ 
+            container: "#candy",
+            flavor: "lolly",
+            position: [left, bottom]
+        }));
+
+       this.candy.push(new CandyView({ 
+            container: "#candy",
+            flavor: "wrapped",
+            position: [right, bottom]
+        }));
+
+        this.candy.push(new CandyView({ 
+            container: "#candy",
+            flavor: "lolly",
+            position: [right, top]
+        }));
+    }
+
+    this.removeCandy = function() {
+
+        this.candy.forEach(function(view){
+            view.goaway();
         });
     }
 
@@ -45,7 +81,7 @@ var AppController = function(){
 
         this.startConfetti();
 
-        // this.addCandy();
+        this.addCandy();
   
     };
 

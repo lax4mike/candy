@@ -2,7 +2,7 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 Backbone.$ = $;
-var transit = require('jquery.transit');
+var velocity = require('velocity-animate');
 
 require('./wrapped.handlebars');
 require('./lolly.handlebars');
@@ -12,6 +12,8 @@ var CandyView = module.exports = Backbone.View.extend({
 
 
 	flavors: ["wrapped", "lolly"],
+
+	size: 100,
 
 	initialize: function(options) {
 
@@ -23,9 +25,15 @@ var CandyView = module.exports = Backbone.View.extend({
 			console.error("specify a flavor! (" + this.flavors.join(", ") + ")");
 			return;
 		}
+		if (!options.position){
+			console.error("specify a position! eg. [100, 100]");
+			return;
+		}
+
 
 		this.container = $(options.container);
 		this.flavor = options.flavor;
+		this.position = options.position;
 
 		this.template = require('./' + this.flavor + ".handlebars");
 
@@ -34,11 +42,11 @@ var CandyView = module.exports = Backbone.View.extend({
 			.addClass(this.flavor)
 			.addClass("candy")
 			.css({
-				width: 100,
-				height: 100,
+				width: 0,
+				height: 0,
 				position: "absolute",
-				top: 100,  
-				left: 100
+				top: this.position[1],  
+				left: this.position[0]
 			})
 			.html(this.template({}));
 
@@ -48,11 +56,14 @@ var CandyView = module.exports = Backbone.View.extend({
 
 		this.$el.appendTo(this.container);
 
-		// this.$el.transition({
-		// 	width: 100,
-		// 	height: 100,
-		// 	duration: 2000
-		// });
+		this.$el.velocity({
+			width: this.size,
+			height: this.size,
+			top: '-=' + (this.size/2),
+			left: '-=' + (this.size/2)
+		}, {
+			duration: 2000
+		});
 
 		// this.$el.transition({
 		// 	rotate: '1080deg'
@@ -62,10 +73,24 @@ var CandyView = module.exports = Backbone.View.extend({
 	},
 
 	spin: function(){
-		console.log("SPLIN!");
 		this.$el.transition({
 			rotate: '1080deg'
 		});
+	},
+
+	goaway: function(){
+		this.$el.velocity({
+			width: 0,
+			height: 0,
+			top: '+=' + (this.size/2),
+			left: '+=' + (this.size/2)
+		}, {
+			duration: 2000,
+			complete: function(){
+				this.$el.remove();
+			}.bind(this)
+		});
+		
 	},
 
 	getRandomLeft: function(){ 
