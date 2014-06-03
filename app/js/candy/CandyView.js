@@ -6,6 +6,8 @@ var velocity = require('velocity-animate');
 
 require('./wrapped.handlebars');
 require('./lolly.handlebars');
+require('./peppermint.handlebars');
+require('./candycane.handlebars');
 
 
 var CandyView = module.exports = Backbone.View.extend({

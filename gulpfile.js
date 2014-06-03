@@ -9,6 +9,7 @@ var reload      = require('gulp-livereload');
 var prefix      = require('gulp-autoprefixer');
 var nodemon     = require('gulp-nodemon');
 var stylus      = require('gulp-stylus');
+var uglify      = require('gulp-uglify');
   
 
 var paths = {
@@ -74,9 +75,10 @@ gulp.task('js', function() {
     return gulp.src(paths.js.entry)
         .pipe(plumber()) // handle errors
         .pipe(browserify({
-            transform: [handlebars],
-            debug: true
+            transform: [handlebars]
+            // debug: true
         }))
+        // .pipe(uglify())
         .pipe(gulp.dest(paths.assets + "/js/"))
         .pipe(reload(lr));
 });

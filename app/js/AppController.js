@@ -33,51 +33,93 @@ var AppController = function(){
         }.bind(this), 6000);
     }
 
+    this.defineCoords = function(){
+
+        this.envelopeWidth = $('.envelope').width();
+        this.distance = 100/2; // 100 is size of candy, and they are centered
+
+        this.left   = ($(window).width() - this.envelopeWidth) / 4;
+        this.left   = (this.left < this.distance) ? this.distance : this.left;
+
+        this.right  = this.left * 3 + this.envelopeWidth;
+        this.right  = (this.right > ($(window).width() - this.distance)) ? ($(window).width() - this.distance) : this.right;
+
+        this.top    = this.distance * 2;
+        this.bottom = $(window).height() - (this.distance * 2);
+
+    }
 
 
     this.addCandy = function(){
 
-        var distance = 100;
-        var left   = distance;
-        var right  = $(window).width() - distance;
-        var top    = distance;
-        var bottom = $(window).height() - distance;
-
         this.candy.push(new CandyView({ 
             container: "#candy",
             flavor: "wrapped",
-            position: [left, top]
+            position: [this.left, this.top]
+        }));
+
+        this.candy.push(new CandyView({ 
+            container: "#candy",
+            flavor: "peppermint",
+            position: [this.right, this.top]
         }));
 
         this.candy.push(new CandyView({ 
             container: "#candy",
             flavor: "lolly",
-            position: [left, bottom]
+            position: [this.right, this.bottom]
         }));
 
        this.candy.push(new CandyView({ 
             container: "#candy",
-            flavor: "wrapped",
-            position: [right, bottom]
+            flavor: "candycane",
+            position: [this.left, this.bottom]
         }));
+ 
+        
 
-        this.candy.push(new CandyView({ 
-            container: "#candy",
-            flavor: "lolly",
-            position: [right, top]
-        }));
+     
+        // this.move = setInterval(this.moveCandy.bind(this), 2000);
+        
+
+    }
+
+    this.moveCandy = function(){
+
+        this.candy.forEach(function(view, i){
+
+            var x = this.left, y = this.top;
+
+            if (i % 2 == 0){ x = this.right; }
+            if (i < 2){ y = this.bottom; }
+
+            view.$el.velocity({
+                top: y - 50,
+                left: x - 50
+            });
+
+        }.bind(this));
+
+        this.candy.push(this.candy.shift());
+
     }
 
     this.removeCandy = function() {
 
+        // clearInterval(this.move);
+
+
         this.candy.forEach(function(view){
             view.goaway();
         });
+        this.candy = [];
     }
 
     this.party = function(){
 
         $('.envelope').addClass('open');
+
+        this.defineCoords();
 
         this.startConfetti();
 
