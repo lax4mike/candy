@@ -2,20 +2,11 @@ var $ = require('jquery');
 var _ = require('underscore');
 var Backbone = require('backbone');
 
-// var io = require('socket.io-client');
-// var host = window.location.hostname;
-// var socket = io.connect('//'+host+':3300'); 
-
 var DotView = require('./dot/DotView.js');
 var CandyView = require('./candy/CandyView.js');
 
 
-// var AppRouter = require('./AppRouter.js');
-
-
 var AppController = function(){
-
-    // this.socket = socket;
 
     this.candy = [];
 
@@ -79,35 +70,10 @@ var AppController = function(){
             }));
      
         }
-     
-        // this.move = setInterval(this.moveCandy.bind(this), 2000);
-
-    }
-
-    this.moveCandy = function(){
-
-        this.candy.forEach(function(view, i){
-
-            var x = this.left, y = this.top;
-
-            if (i % 2 == 0){ x = this.right; }
-            if (i < 2){ y = this.bottom; }
-
-            view.$el.velocity({
-                top: y - 50,
-                left: x - 50
-            });
-
-        }.bind(this));
-
-        this.candy.push(this.candy.shift());
 
     }
 
     this.removeCandy = function() {
-
-        // clearInterval(this.move);
-
 
         this.candy.forEach(function(view){
             view.goaway();
@@ -130,17 +96,6 @@ var AppController = function(){
     $('.envelope').on('click', this.party.bind(this));
 
     
-
-    
-    
-   
-
-    /**
-     * Socket events
-     */
-    // on connection to server
-    // this.socket.on('connect', function(){
-    // });
 };
 
 

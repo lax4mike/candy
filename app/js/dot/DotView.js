@@ -1,5 +1,5 @@
 var $ = require('jquery');
-window.jQuery = $; // hack to get velocity to
+window.jQuery = $; // hack to get velocity to work
 var _ = require('underscore');
 var Backbone = require('backbone');
 Backbone.$ = $;
@@ -16,7 +16,7 @@ var DotView = module.exports = Backbone.View.extend({
 		'#1abc9c', // turquoise
 		'#2ecc71', // emerald 
 		'#3498db', // peter river
-		'#9b59b6' // amethyst
+		'#9b59b6'  // amethyst
 	],
 
 	initialize: function(options) {
@@ -36,18 +36,25 @@ var DotView = module.exports = Backbone.View.extend({
 			height: size,
 			width: size,
 			left: this.getRandomLeft(),
-			top: this.getRandomTop()
-		})
+			top: this.getRandomTop(),
+			opacity: 0
+		});
 
 		this.setElement(el);
 
+		this.$el.appendTo(this.container);
+
+		this.animate();
+
+		return this;
+	},
+
+	animate: function(){
 
 		var fallDuration = 3000,
 			fadeDuration = 500;
 
-		this.$el.appendTo(this.container)
-			.css({opacity: 0});
-
+		// fade in
 		this.$el.velocity({ 
 			opacity: 1
 		}, {
@@ -55,8 +62,7 @@ var DotView = module.exports = Backbone.View.extend({
 			duration: fadeDuration
 		});
 
-
-
+		// fall
 		this.$el.velocity({ 
 			translateY: '5000%',
 		}, {
@@ -68,6 +74,7 @@ var DotView = module.exports = Backbone.View.extend({
 			}.bind(this)
 		});
 
+		// fade out
 		this.$el.velocity({
 			opacity: 0
 		}, {
@@ -75,36 +82,10 @@ var DotView = module.exports = Backbone.View.extend({
 			duration: 500,
 			delay: fallDuration - fadeDuration
 		});
-		
-		
-
-		// remove element after it's done animating	
-		// var prefix = function(type){
-		// 	var pfx = ["webkit", "moz", "MS", "o", ""];
-		// 	pfx = pfx.map(function(p){
-		// 		if (!p) type = type.toLowerCase();
-		// 		return p + type;
-		// 	});
-		// 	return pfx.join(" ");
-		// };
-		// this.$el.on(prefix('AnimationEnd'), function(event) { 
-		
-		// 	console.log($(this).css("transform"));
-		// 	$(this).fadeOut();
-		// 	// {
-		// 	// 	duration: 400,
-		// 	// 	complete: function(){
-		// 	// 		$(this).remove();	
-		// 	// 	}.bind(this)
-		// 	// });
-					
-		// });
-
-		return this;
 	},
 
 	getRandomColor: function(){
-		return this.colors[~~(Math.random() * this.colors.length)];
+		return this.colors[Math.floor(Math.random() * this.colors.length)];
 	},
 
 	getRandomLeft: function(){ 
@@ -112,11 +93,7 @@ var DotView = module.exports = Backbone.View.extend({
 	},
 
 	getRandomTop: function(){ 
-		return ~~(Math.random() * this.container.height()) - 300;
-	},
-
-	render: function(){
-
+		return Math.floor(Math.random() * this.container.height()) - 300;
 	}
 	
 });

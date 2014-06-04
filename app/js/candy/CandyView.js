@@ -13,7 +13,7 @@ require('./candycane.handlebars');
 var CandyView = module.exports = Backbone.View.extend({
 
 
-	flavors: ["wrapped", "lolly"],
+	flavors: ["wrapped", "lolly", "peppermint", "candycane"],
 
 	size: 100,
 
@@ -54,8 +54,6 @@ var CandyView = module.exports = Backbone.View.extend({
 
 		this.setElement(el);
 
-		this.$el.on('click', this.spin.bind(this));
-
 		this.$el.appendTo(this.container);
 
 		this.$el.velocity({
@@ -67,17 +65,7 @@ var CandyView = module.exports = Backbone.View.extend({
 			duration: 2000
 		});
 
-		// this.$el.transition({
-		// 	rotate: '1080deg'
-		// });
-
 		return this;
-	},
-
-	spin: function(){
-		this.$el.transition({
-			rotate: '1080deg'
-		});
 	},
 
 	goaway: function(){
@@ -101,10 +89,6 @@ var CandyView = module.exports = Backbone.View.extend({
 
 	getRandomTop: function(){ 
 		return ~~(Math.random() * this.container.height()) - 300;
-	},
-
-	render: function(){
-
 	}
 	
 });
