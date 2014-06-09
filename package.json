@@ -7,9 +7,6 @@
     "backbone": "^1.1.2",
     "express": "^4.1.0",
     "jquery": "^2.1.0",
-    "jquery.transit": "^0.9.10",
-    "socket.io": "^0.9.16",
-    "socket.io-client": "^0.9.16",
     "underscore": "^1.6.0",
     "velocity-animate": "0.0.19"
   },

@@ -5,21 +5,18 @@
 	animation: wiggle 3s linear 0s infinite; 
 
 }
-// name duration timing-function delay iteration-count direction fill-mode play-state;
-// name duration ease            0s    1               normal    none
-		
 
-@keyframes fade {
-	0%   { opacity: 0; }
-	20%  { opacity: inherit; }
-	70%  { opacity: inherit; }
-	100% { opacity: 0; }
+.candy {
+	animation: spin .6s linear 0s infinite;
+
+	&.peppermint { 
+		animation: spin 2s linear 0s infinite;
+	}
+	&.candycane {
+		animation: spin .8s linear 0s infinite;
+	}
 }
 
-@keyframes fall {
-	0%   { transform: translateY(0); }  
-    100% { transform: translateY(5000%);}
-}
 
 @keyframes wiggle {
 	0%   { margin-left: 0; }  
@@ -34,13 +31,3 @@
 	100% { transform: rotateZ(360deg); } 
 }
 
-.candy {
-	animation: spin .6s linear 0s infinite;
-
-	&.peppermint { 
-		animation: spin 2s linear 0s infinite;
-	}
-	&.candycane {
-		animation: spin .8s linear 0s infinite;
-	}
-}

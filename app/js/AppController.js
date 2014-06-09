@@ -5,11 +5,13 @@ var Backbone = require('backbone');
 var DotView = require('./dot/DotView.js');
 var CandyView = require('./candy/CandyView.js');
 
-
+// main controller for the page
 var AppController = function(){
 
+    // keep track of all the candy (CandyView.js) we have on the page
     this.candy = [];
 
+    // generate a bunch of confetti
     this.startConfetti = function(){
         var dotTimer = setInterval(function(){
             var dot = new DotView({
@@ -24,6 +26,8 @@ var AppController = function(){
         }.bind(this), 12000);
     }
 
+    // pick some good spots for the candies to show up 
+    // depending on the screen size
     this.defineCoords = function(){
 
         this.envelopeWidth = $('.envelope').width();
@@ -40,7 +44,7 @@ var AppController = function(){
 
     }
 
-
+    // add all the candy to the page
     this.addCandy = function(){
 
         // only add the candy if it's not there
@@ -73,6 +77,7 @@ var AppController = function(){
 
     }
 
+    // remove all the candy from the page
     this.removeCandy = function() {
 
         this.candy.forEach(function(view){
@@ -81,6 +86,7 @@ var AppController = function(){
         this.candy = [];
     }
 
+    // start everything! partay!
     this.party = function(){
 
         $('.envelope').addClass('open');
@@ -93,6 +99,7 @@ var AppController = function(){
   
     };
 
+    // party when the user clicks the envelope
     $('.envelope').on('click', this.party.bind(this));
 
     

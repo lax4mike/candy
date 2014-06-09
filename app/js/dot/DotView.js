@@ -6,10 +6,10 @@ Backbone.$ = $;
 
 var velocity = require('velocity-animate');
 
+// View for each individual dot of confetti
+module.exports = Backbone.View.extend({
 
-var DotView = module.exports = Backbone.View.extend({
-
-	colors: [ // http://flatuicolors.com/
+	colors: [      // http://flatuicolors.com/
 		'#e74c3c', // alizarin
 		'#e67e22', // carrot
 		'#f1c40f', // sunflower
@@ -28,9 +28,10 @@ var DotView = module.exports = Backbone.View.extend({
 
 		this.container = $(options.container);
 
-
+		// get random size
 		var size = Math.floor(Math.random() * 10) + 5;
 
+		// create element
 		var el = $('<div>').addClass('dot').css({
 			background: this.getRandomColor(),
 			height: size,
@@ -49,6 +50,8 @@ var DotView = module.exports = Backbone.View.extend({
 		return this;
 	},
 
+	// animate the dot falling at different rates depending on it's size
+	// using velocity to manage css3 transition timing
 	animate: function(){
 
 		var fallDuration = 3000,
