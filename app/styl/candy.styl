@@ -1,5 +1,5 @@
 .dot {
-	border-radius: 100%;
+	border-radius: 50%;
 	position: absolute;
 	opacity: 1;
 	animation: wiggle 3s linear 0s infinite; 
@@ -7,14 +7,19 @@
 }
 
 .candy {
-	animation: spin .6s linear 0s infinite;
+	
+	svg {
+		animation: spin .6s linear 0s infinite;	
+	}
 
-	&.peppermint { 
+	// make these spin at a different speed
+	&.peppermint svg { 
 		animation: spin 2s linear 0s infinite;
 	}
-	&.candycane {
+	&.candycane svg {
 		animation: spin .8s linear 0s infinite;
 	}
+
 }
 
 
